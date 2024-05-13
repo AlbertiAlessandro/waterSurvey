@@ -136,11 +136,5 @@
         <?php endif; ?>
     </div>
 </div>
-<button onclick='logout()'>logout</button>
 </body>
-<script>
-function logout(){
-    window.location.href='index.php?action=logout'
-}
-</script>
 </html>
