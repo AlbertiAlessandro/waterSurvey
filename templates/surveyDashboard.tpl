@@ -130,7 +130,7 @@
             <h2><?= htmlspecialchars($informazione['nome']) ?></h2>
             <p><?= htmlspecialchars($informazione['descrizione']) ?></p>
             <p><?= htmlspecialchars($informazione['creatore']) ?></p>
-            <a href="index.php?action=survey&id=<?= $informazione['id'] ?>"><button>Survey</button></a>
+            <a href="index.php?action=survey&id=<?= $informazione['id'] ?>"><button>Go to the Survey</button></a>
         </div>
         <?php endforeach; ?>
         <?php endif; ?>
