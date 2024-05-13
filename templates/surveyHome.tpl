@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="styles.css">
     <style>
         /* Stili esistenti qui... */
-
         .navbar {
             background-color: #007BFF; /* Blu */
             color: white;
@@ -35,7 +34,6 @@
             margin-right: 10px;
         }
 
-        /* Aggiornamento delle query di media per la navbar */
         @media (max-width: 600px) {
             .navbar {
                 flex-direction: column;
@@ -46,8 +44,6 @@
             }
         }
 
-
-        /* Reset di base e stili per il body */
         body {
             margin: 0;
             font-family: Arial, sans-serif;
@@ -78,13 +74,13 @@
         }
 
         .card {
-            flex: 1 1 300px; /* Cresce per riempire lo spazio ma non più piccolo di 300px */
+            flex: 1 1 300px;
             background-color: #e7e7e7;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.15);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: 3px solid transparent; /* Predefinito senza colore */
+            border: 3px solid transparent;
         }
 
         .card:hover {
@@ -115,9 +111,7 @@
                 flex-basis: 100%;
             }
         }
-
     </style>
-    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
 <nav class="navbar">
@@ -128,24 +122,18 @@
     </div>
 </nav>
 <div class="container">
-    <h1>Gestione Questionari</h1>
+    <h1>Dashboard Survey</h1>
     <div class="card-container">
+        <?php if (isset($informazioni) && is_array($informazioni)): ?>
+        <?php foreach ($informazioni as $informazione): ?>
         <div class="card style">
-            <h2>Matematica Base</h2>
-            <p>Difficoltà: Facile</p>
-            <p>Domande: 10</p>
+            <h2><?= htmlspecialchars($informazione['nome']) ?></h2>
+            <p><?= htmlspecialchars($informazione['descrizione']) ?></p>
+            <p><?= htmlspecialchars($informazione['creatore']) ?></p>
+            <a href="index.php?action=survey&id=<?= $informazione['id'] ?>"><button>Survey</button></a>
         </div>
-        <div class="card style">
-            <h2>Storia Moderna</h2>
-            <p>Difficoltà: Media</p>
-            <p>Domande: 15</p>
-        </div>
-        <div class="card style">
-            <h2>Scienze Avanzate</h2>
-            <p>Difficoltà: Difficile</p>
-            <p>Domande: 20</p>
-        </div>
-        <!-- Altre card possono essere aggiunte qui -->
+        <?php endforeach; ?>
+        <?php endif; ?>
     </div>
 </div>
 </body>
