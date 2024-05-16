@@ -7,20 +7,28 @@ use Util\Connection;
 class RispostaRepository
 {
 
+    //da fare con l'id della domanda, così che ogni riposta sarà l'opzione di una
+    //specifica domanda
     public static function listAllRiposteByIDSurvey($id_survey): array
     {
         try {
             $pdo = Connection::getInstance();
-            $sql = 'SELECT * FROM response WHERE id_questionario = :id_survey'; // Assicurati che i nomi delle colonne e della tabella siano corretti
+            $sql = 'SELECT * FROM response WHERE id_questionario = :id_questionario';
             $stmt = $pdo->prepare($sql);
-            $stmt->execute(['id_survey' => $id_survey]); // Aggiungi i due punti nel binding del parametro
-            return $stmt->fetchAll(); // Utilizza PDO::FETCH_ASSOC per ottenere solo un array associativo
+            $stmt->execute([':id_questionario' => $id_survey]);
+            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            $responses = [];
+            foreach ($rows as $row) {
+                $responses[$row['id_domanda']][] = $row;
+            }
+            return $responses;
         } catch (PDOException $e) {
-            // Gestione degli errori, ad esempio loggare l'errore e restituire un array vuoto
-            error_log("Errore durante il recupero delle domande del questionario: " . $e->getMessage());
-            return []; // Restituisce un array vuoto in caso di errore
+            error_log("Errore durante il recupero delle risposte: " . $e->getMessage());
+            return [];
         }
     }
+
 
 
 }

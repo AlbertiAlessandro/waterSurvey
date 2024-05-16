@@ -17,7 +17,6 @@ if (isset($_GET['action'])) {
         $id_survey = $_GET['id'];
         $domande = \Model\DomandaRepository::listAllDomandeByIDSurvey($id_survey);
         $risposte = \Model\RispostaRepository::listAllRiposteByIDSurvey($id_survey);
-        var_dump($risposte);
         echo $template->render('survey', [
             'domande' => $domande,
             'risposte' => $risposte
