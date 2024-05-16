@@ -59,25 +59,19 @@
 <div class="container">
     <h1>Partecipa al Survey</h1>
     <form id="surveyForm" method="post">
+        <?php foreach ($domande as $domanda): ?>
         <div class="question">
-            <h2>Quanto è importante l'innovazione tecnologica per te?</h2>
+            <h2><?php echo htmlspecialchars($domanda['domanda']); ?></h2>
             <div class="options">
-                <label><input type="radio" name="question1" value="Molto importante"> Molto importante</label><br>
-                <label><input type="radio" name="question1" value="Importante"> Importante</label><br>
-                <label><input type="radio" name="question1" value="Moderatamente importante"> Moderatamente importante</label><br>
-                <label><input type="radio" name="question1" value="Poco importante"> Poco importante</label><br>
-                <label><input type="radio" name="question1" value="Per niente importante"> Per niente importante</label>
+                <?php foreach ($risposte as $risposta): ?>
+                <label>
+                    <input type="radio" name="question<?php echo $domanda['id']; ?>" value="<?php echo htmlspecialchars($risposta['risposta']); ?>">
+                    <?php echo htmlspecialchars($risposta['risposta']); ?>
+                </label><br>
+                <?php endforeach; ?>
             </div>
         </div>
-        <div class="question">
-            <h2>Quale sistema operativo preferisci?</h2>
-            <div class="options">
-                <label><input type="radio" name="question2" value="Windows"> Windows</label><br>
-                <label><input type="radio" name="question2" value="MacOS"> MacOS</label><br>
-                <label><input type="radio" name="question2" value="Linux"> Linux</label><br>
-                <label><input type="radio" name="question2" value="Altro"> Altro</label>
-            </div>
-        </div>
+        <?php endforeach; ?>
         <button type="submit" class="submit-btn">Invia Risposte</button>
     </form>
 </div>
@@ -92,6 +86,9 @@
         }
         console.log(data); // Per visualizzare le risposte nel console log del browser
         alert('Grazie per aver partecipato al survey!');
+        setTimeout(function() {
+            window.location.href = 'index.php'; // Modifica 'index.php' con l'URL della tua pagina iniziale
+        }, 2000); // Ritardo di 2 secondi
     };
 </script>
 </body>
