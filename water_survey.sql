@@ -5,29 +5,29 @@ create table tipo_domanda
     tipo varchar(100) null
 );
 
+create table ruolo(
+    id int unsigned auto_increment 
+    primary key,
+    nome varchar(50) null
+    
+);
 create table user
 (
     id       int unsigned auto_increment
         primary key,
     username varchar(100) not null,
     password text         not null,
-    image    blob         not null,
     email    varchar(100) not null,
     nome     varchar(50)  null,
     cognome  varchar(50)  null,
     ruolo int unsigned not null,
     constraint ruolo
-        foreign key (ruolo) references ruolo (id)
+        foreign key (ruolo) references ruolo (id),
     constraint email
         unique (email),
     constraint username
         unique (username)
 );
-create table ruolo(
-    id int unsigned auto_increment primary key
-    nome varchar(50)
-    
-)
 create table survey
 (
     id          int unsigned auto_increment
