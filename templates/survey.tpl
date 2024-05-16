@@ -74,7 +74,7 @@
             </div>
         </div>
         <?php endforeach; ?>
-        <button type="submit" class="submit-btn">Invia Risposte</button>
+        <a href="index.php?action=finish"><button type="submit" class="submit-btn">Invia Risposte</button></a>
     </form>
 </div>
 
@@ -88,9 +88,8 @@
         }
         console.log(data); // Per visualizzare le risposte nel console log del browser
         alert('Grazie per aver partecipato al survey!');
-        setTimeout(function() {
-            window.location.href = 'index.php'; // Modifica 'index.php' con l'URL della tua pagina iniziale
-        }, 2000); // Ritardo di 2 secondi
+        window.location.href = 'index.php'; // Modifica 'index.php' con l'URL della tua pagina iniziale
+        
     };
 </script>
 </body>

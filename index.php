@@ -21,6 +21,8 @@ if (isset($_GET['action'])) {
             'domande' => $domande,
             'risposte' => $risposte
         ]);
+    }else if ($action === 'finish'){
+        //Gestione dei dati per l'interfaccia Admin
     }
 
 }else{
