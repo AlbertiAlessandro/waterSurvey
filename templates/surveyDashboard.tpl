@@ -115,7 +115,6 @@
 </head>
 <body>
 <nav class="navbar">
-    <a href="#" class="back-link">&larr; Indietro</a>
     <div class="user-profile">
         <img src="user-profile.jpg" alt="Profilo Utente" class="profile-pic">
         <span>Nome Utente</span>
@@ -130,7 +129,7 @@
             <h2><?= htmlspecialchars($informazione['nome']) ?></h2>
             <p><?= htmlspecialchars($informazione['descrizione']) ?></p>
             <p><?= htmlspecialchars($informazione['creatore']) ?></p>
-            <a href="index.php?action=survey&id=<?= $informazione['id'] ?>"><button>Go to the Survey</button></a>
+            <button>Go to the Survey</button>
         </div>
         <?php endforeach; ?>
         <?php endif; ?>
