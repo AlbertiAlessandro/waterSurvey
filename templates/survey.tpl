@@ -63,12 +63,14 @@
         <div class="question">
             <h2><?php echo htmlspecialchars($domanda['domanda']); ?></h2>
             <div class="options">
-                <?php foreach ($risposte as $risposta): ?>
+                <?php if (isset($risposte[$domanda['id']])): ?>
+                <?php foreach ($risposte[$domanda['id']] as $risposta): ?>
                 <label>
                     <input type="radio" name="question<?php echo $domanda['id']; ?>" value="<?php echo htmlspecialchars($risposta['risposta']); ?>">
                     <?php echo htmlspecialchars($risposta['risposta']); ?>
                 </label><br>
                 <?php endforeach; ?>
+                <?php endif; ?>
             </div>
         </div>
         <?php endforeach; ?>
