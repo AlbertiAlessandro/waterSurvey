@@ -14,14 +14,20 @@ create table user
     image    blob         not null,
     email    varchar(100) not null,
     nome     varchar(50)  null,
-    ruolo    varchar(50)  null,
     cognome  varchar(50)  null,
+    ruolo int unsigned not null,
+    constraint ruolo
+        foreign key (ruolo) references ruolo (id)
     constraint email
         unique (email),
     constraint username
         unique (username)
 );
-
+create table ruolo(
+    id int unsigned auto_increment primary key
+    nome varchar(50)
+    
+)
 create table survey
 (
     id          int unsigned auto_increment
@@ -29,6 +35,7 @@ create table survey
     nome        varchar(100) not null,
     descrizione varchar(255) null,
     creatore    int unsigned not null,
+    numero_domande int unsigned,
     constraint creatore
         foreign key (creatore) references user (id)
 );
