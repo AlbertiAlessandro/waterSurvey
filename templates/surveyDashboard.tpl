@@ -6,7 +6,6 @@
     <title>Gestione Questionari</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Stili esistenti qui... */
         .navbar {
             background-color: #007BFF; /* Blu */
             color: white;
@@ -97,6 +96,15 @@
             font-size: 14px;
         }
 
+        .completato {
+            color: green;
+            font-weight: bold;
+        }
+
+        .non-completato {
+            color: red;
+            font-weight: bold;
+        }
 
         .style {
             border-color: black;
@@ -124,16 +132,27 @@
 <div class="container">
     <h1>Dashboard Survey</h1>
     <div class="card-container">
-        <?php if (isset($informazioni) && is_array($informazioni)): ?>
-        <?php foreach ($informazioni as $informazione): ?>
+        <?php
+        // Ottieni le informazioni dei questionari
+        $informazioni = \Model\QuestionarioRepository::listAll();
+
+        if (is_array($informazioni) && count($informazioni) > 0):
+        foreach ($informazioni as $informazione):
+        $completato = \Model\QuestionarioRepository::isCompleted($informazione['id']);
+        ?>
         <div class="card style">
             <h2><?= htmlspecialchars($informazione['nome']) ?></h2>
             <p><?= htmlspecialchars($informazione['descrizione']) ?></p>
             <p><?= htmlspecialchars($informazione['creatore']) ?></p>
-            <a href="index.php?action=survey&id=<?= $informazione['id']?>"><button>Go to the Survey</button></a>
+            <p class="<?= $completato ? 'completato' : 'non-completato' ?>">
+                <?= $completato ? 'Completato' : 'Non Completato' ?>
+            </p>
+            <a href="index.php?action=survey&id=<?= $informazione['id'] ?>"><button>Vai al Survey</button></a>
         </div>
-        <?php endforeach; ?>
-        <?php endif; ?>
+        <?php
+            endforeach;
+        endif;
+        ?>
     </div>
 </div>
 </body>

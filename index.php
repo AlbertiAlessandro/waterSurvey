@@ -9,24 +9,23 @@ session_start();
 $template = new League\Plates\Engine('templates', 'tpl');
 
 
-$informazioni = \Model\QuestionarioRepository::getInformazioniQuestionario();
+$informazioni = \Model\QuestionarioRepository::listAll();
 
 if (isset($_GET['action'])) {
     $action = $_GET['action'];
     if ($action === 'survey') {
-        $id_survey = intval($_GET['id']);
-        if ($id_survey > 0) {
-            $domande = \Model\DomandaRepository::listAllDomandeByIDSurvey($id_survey);
-            $opzioni = \Model\OpzioneRepository::listAllOpzioniByIDSurvey($id_survey);
+        $_SESSION['id_survey'] = intval($_GET['id']);
+        if ($_SESSION['id_survey'] > 0) {
+            $domande = \Model\DomandaRepository::listAllDomandeByIDSurvey($_SESSION['id_survey']);
+            $opzioni = \Model\OpzioneRepository::listAllOpzioniByIDSurvey($_SESSION['id_survey']);
             echo $template->render('survey', [
                 'domande' => $domande,
                 'opzioni' => $opzioni,
-                'id_survey' => $id_survey
+                'id_survey' => $_SESSION['id_survey']
             ]);
         }
 
     }else if ($action === 'finish'){
-
 
     }
 
