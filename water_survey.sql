@@ -20,6 +20,7 @@ create table user
     email    varchar(100) not null,
     nome     varchar(50)  null,
     cognome  varchar(50)  null,
+    token_reset varchar(50) default null,
     ruolo int unsigned not null,
     constraint ruolo
         foreign key (ruolo) references ruolo (id),

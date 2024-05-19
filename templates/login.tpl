@@ -39,7 +39,8 @@ form {
 }
 
 input[type="text"],
-input[type="password"] {
+input[type="password"],
+input[type='email'] {
     margin-bottom: 15px;
     padding: 8px;
     border: 1px solid #ccc;
@@ -66,17 +67,45 @@ input[type="submit"]:hover {
 <body>
     <h1 class="title">Login</h1>
     <div class="container">
-        <form action="index.php" method="post">
+        <form id="loginForm" action="index.php?action=login" method="post">
             <input name="username" type="text" placeholder="Username">
             <input name="password" type="password" placeholder="Password">
             <input type="submit" value="Login">
         </form>
         <button onclick='change()'>registrazione</button>
+        <button onclick='resetPassword()'>ResetPassword</button>
     </div>
 </body>
 <script>
 function change(){
 window.location.href='index.php?action=registrazione'
 }
+ function resetPassword() {
+            const form = document.getElementById('loginForm');
+            form.innerHTML = `
+                <input name="email" type="email" placeholder="Inserisci l'email">
+                <input type="submit" value="Reset Password">
+            `;
+            form.action = 'index.php?action=confirmcode';
+            // Sostituisce i pulsanti con un pulsante "Back"
+            const container = document.querySelector('.container');
+            container.innerHTML += `<button onclick='goBack()'>Back</button>`;
+        }
+
+        function goBack() {
+            const form = document.getElementById('loginForm');
+            form.innerHTML = `
+                <input name="username" type="text" placeholder="Username">
+                <input name="password" type="password" placeholder="Password">
+                <input type="submit" value="Login">
+            `;
+            form.action = 'index.php?action=login';
+            // Ripristina i pulsanti originali
+            const container = document.querySelector('.container');
+            const backButton = document.querySelector('.container button[onclick="goBack()"]');
+            if (backButton) {
+                backButton.remove();
+            }
+        }
 </script>
 </html>

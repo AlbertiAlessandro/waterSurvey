@@ -53,6 +53,39 @@ class UserRepository{
         else
             return $row = $stmt->fetch();
     }
-    
+    public static function getUserByEmail(string $email) {
+        $pdo = Connection::getInstance();
+        $sql = 'SELECT * FROM user WHERE email=:email';
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+                'email' => $email
+            ]
+        );
+        if($stmt->rowCount() == 0)
+            return null;
+        else
+            return $row = $stmt->fetch();
+    }
 
+    public static function insertToken(string $email, string $code) {
+        $pdo = Connection::getInstance();
+        $sql = 'UPDATE user SET token_reset=:code   WHERE email=:email';
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+                'email' => $email,
+                'code'=> $code
+            ]
+        );
+    }
+    public static function updatePassword(string $password,string $email){
+        $pdo = Connection::getInstance();
+        
+        $sql = 'UPDATE user SET token_reset=NULL, password=:password WHERE email=:email';
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+                'password'=>$password,
+                'email'=>$email
+            ]
+        );  
+    }
 }
