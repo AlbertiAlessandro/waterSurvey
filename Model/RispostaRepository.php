@@ -7,8 +7,7 @@ use Util\Connection;
 class RispostaRepository
 {
 
-    //da fare con l'id della domanda, così che ogni riposta sarà l'opzione di una
-    //specifica domanda
+
     public static function listAllRiposteByIDSurvey($id_survey): array
     {
         try {
