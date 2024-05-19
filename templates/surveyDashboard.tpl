@@ -94,8 +94,9 @@
         }
 
         .card p {
-            margin: 5px 0;
+            font-size: 14px;
         }
+
 
         .style {
             border-color: black;
@@ -129,7 +130,7 @@
             <h2><?= htmlspecialchars($informazione['nome']) ?></h2>
             <p><?= htmlspecialchars($informazione['descrizione']) ?></p>
             <p><?= htmlspecialchars($informazione['creatore']) ?></p>
-            <button>Go to the Survey</button>
+            <a href="index.php?action=survey&id=<?= $informazione['id']?>"><button>Go to the Survey</button></a>
         </div>
         <?php endforeach; ?>
         <?php endif; ?>

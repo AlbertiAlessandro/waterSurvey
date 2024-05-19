@@ -63,19 +63,31 @@
         <div class="question">
             <h2><?php echo htmlspecialchars($domanda['domanda']); ?></h2>
             <div class="options">
-                <?php if (isset($risposte[$domanda['id']])): ?>
+                <?php if ($domanda['tipo'] == 2): ?>
+                <!-- Campo di testo per domande a risposta aperta -->
+                <label>
+                    <input type="text" name="question<?php echo $domanda['id']; ?>" placeholder="Inserisci una risposta">
+                </label>
+                <?php elseif (isset($risposte[$domanda['id']])): ?>
+                <!-- Radio buttons per domande a risposta chiusa -->
                 <?php foreach ($risposte[$domanda['id']] as $risposta): ?>
                 <label>
                     <input type="radio" name="question<?php echo $domanda['id']; ?>" value="<?php echo htmlspecialchars($risposta['risposta']); ?>">
                     <?php echo htmlspecialchars($risposta['risposta']); ?>
                 </label><br>
                 <?php endforeach; ?>
+                <?php else: ?>
+                <!-- Messaggio di debug: nessuna risposta trovata per la domanda corrente -->
+                <p>Errore: Nessuna risposta trovata per la domanda ID <?php echo htmlspecialchars($domanda['id']); ?></p>
                 <?php endif; ?>
             </div>
         </div>
         <?php endforeach; ?>
-        <a href="index.php?action=finish"><button type="submit" class="submit-btn">Invia Risposte</button></a>
+        <button type="submit" class="submit-btn">Invia Risposte</button>
     </form>
+
+
+
 </div>
 
 <script>
