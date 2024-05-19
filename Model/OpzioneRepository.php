@@ -4,15 +4,14 @@ namespace Model;
 use PDO;
 use Util\Connection;
 
-class RispostaRepository
+class OpzioneRepository
 {
 
-
-    public static function listAllRiposteByIDSurvey($id_survey): array
+    public static function listAllOpzioniByIDSurvey($id_survey): array
     {
         try {
             $pdo = Connection::getInstance();
-            $sql = 'SELECT * FROM response WHERE id_questionario = :id_questionario';
+            $sql = 'SELECT * FROM options WHERE id_questionario = :id_questionario';
             $stmt = $pdo->prepare($sql);
             $stmt->execute([':id_questionario' => $id_survey]);
             $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);

@@ -17,15 +17,17 @@ if (isset($_GET['action'])) {
         $id_survey = intval($_GET['id']);
         if ($id_survey > 0) {
             $domande = \Model\DomandaRepository::listAllDomandeByIDSurvey($id_survey);
-            $risposte = \Model\RispostaRepository::listAllRiposteByIDSurvey($id_survey);
+            $opzioni = \Model\OpzioneRepository::listAllOpzioniByIDSurvey($id_survey);
             echo $template->render('survey', [
                 'domande' => $domande,
-                'risposte' => $risposte
+                'opzioni' => $opzioni,
+                'id_survey' => $id_survey
             ]);
         }
 
     }else if ($action === 'finish'){
-        //Gestione dei dati per l'interfaccia Admin
+
+
     }
 
 }else{

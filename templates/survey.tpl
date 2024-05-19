@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Survey Interattivo</title>
-    <link rel="stylesheet" href="styles.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -68,12 +67,12 @@
                 <label>
                     <input type="text" name="question<?php echo $domanda['id']; ?>" placeholder="Inserisci una risposta">
                 </label>
-                <?php elseif (isset($risposte[$domanda['id']])): ?>
+                <?php elseif (isset($opzioni[$domanda['id']])): ?>
                 <!-- Radio buttons per domande a risposta chiusa -->
-                <?php foreach ($risposte[$domanda['id']] as $risposta): ?>
+                <?php foreach ($opzioni[$domanda['id']] as $opzione): ?>
                 <label>
-                    <input type="radio" name="question<?php echo $domanda['id']; ?>" value="<?php echo htmlspecialchars($risposta['risposta']); ?>">
-                    <?php echo htmlspecialchars($risposta['risposta']); ?>
+                    <input type="radio" name="question<?php echo $domanda['id']; ?>" value="<?php echo htmlspecialchars($opzione['risposta']); ?>">
+                    <?php echo htmlspecialchars($opzione['risposta']); ?>
                 </label><br>
                 <?php endforeach; ?>
                 <?php else: ?>
@@ -83,7 +82,7 @@
             </div>
         </div>
         <?php endforeach; ?>
-        <button type="submit" class="submit-btn">Invia Risposte</button>
+        <a href="index.php?action=finish&id=<?= $id_survey?>"><button type="submit" class="submit-btn">Invia Risposte</button></a>
     </form>
 
 
