@@ -154,6 +154,12 @@
         endif;
         ?>
     </div>
+    <button onclick="logout()">Logout</button>
 </div>
 </body>
+<script>
+    function logout(){
+        window.location.href='index.php?action=logout'
+    }
+</script>
 </html>
