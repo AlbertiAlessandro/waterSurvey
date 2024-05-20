@@ -73,24 +73,27 @@ if (isset($_GET['action'])) {
 }
 $user = Util\Authenticator::getUser();
 
-if($action==='login'){
 
-    Util\MailGestion::enter($user['email']);
-}
 if(isset($_POST['email'])){
-    var_dump($_POST);
     Model\UserRepository::insertUser($_POST['username'],password_hash($_POST['password'],PASSWORD_DEFAULT),$_POST['nome'],$_POST['cognome'],$_POST['email']);
 }
 
 if($user == null){
     echo $template->render('login');
-    exit(0);
-}else{
-    echo $template->render('surveyDashboard', [
-        'informazioni' => $informazioni
-    ]);
+    if(isset($_POST['username']))
+        echo "<script>alert('Nessun account con questo username è presente')</script>";
     exit(0);
 }
+
+if(isset($_GET['action']) && $_GET['action'] ==='login'){
+
+    Util\MailGestion::enter($user['email']);
+}
+echo $template->render('surveyDashboard', [
+    'informazioni' => $informazioni
+]);
+exit(0);
+
 
 
 
