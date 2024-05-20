@@ -69,6 +69,7 @@ if (isset($_GET['action'])) {
         }
     }
 
+
 }
 $user = Util\Authenticator::getUser();
 
