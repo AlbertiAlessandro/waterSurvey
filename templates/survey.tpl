@@ -33,8 +33,50 @@
             font-size: 20px;
         }
 
-        .options input {
-            margin-right: 10px;
+        .options {
+            margin-bottom: 20px;
+            position: relative;
+            width: 100%;
+        }
+
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 20px;
+            background: #d3d3d3;
+            border-radius: 10px;
+            outline: none;
+            opacity: 0.7;
+            -webkit-transition: .2s;
+            transition: opacity .2s;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: #007BFF;
+            border-radius: 50%;
+            cursor: pointer;
+            position: relative;
+            z-index: 2;
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            background: #007BFF;
+            border-radius: 50%;
+            cursor: pointer;
+            position: relative;
+            z-index: 2;
+        }
+
+        .range-value {
+            position: absolute;
+            bottom: -25px;
+            transform: translateX(-50%);
         }
 
         .submit-btn {
@@ -67,8 +109,14 @@
                 <label>
                     <input type="text" name="question<?php echo $domanda['id']; ?>" placeholder="Inserisci una risposta">
                 </label>
+                <?php elseif ($domanda['tipo'] == 3): ?>
+                <!-- Scala scorrevole per domande a risposta chiusa -->
+                <div class="options">
+                    <input type="range" name="question<?php echo $domanda['id']; ?>" min="1" max="7" value="1">
+                    <span class="range-value">1</span>
+                </div>
                 <?php elseif (isset($opzioni[$domanda['id']])): ?>
-                <!-- Radio buttons per domande a risposta chiusa -->
+                <!-- Radio buttons per domande a risposta chiusa non scorrevoli -->
                 <?php foreach ($opzioni[$domanda['id']] as $opzione): ?>
                 <label>
                     <input type="radio" name="question<?php echo $domanda['id']; ?>" value="<?php echo htmlspecialchars($opzione['risposta']); ?>">
@@ -84,12 +132,24 @@
         <?php endforeach; ?>
         <a href="index.php?action=finish&id=<?= $id_survey?>"><button type="submit" class="submit-btn">Invia Risposte</button></a>
     </form>
-
-
-
 </div>
 
 <script>
+    document.querySelectorAll('input[type="range"]').forEach(function(input) {
+        var rangeValue = document.createElement('span');
+        rangeValue.classList.add('range-value');
+        input.parentElement.appendChild(rangeValue);
+
+        input.addEventListener('input', function() {
+            var value = input.value;
+            var min = input.min || 1;
+            var max = input.max || 100;
+            var percent = ((value - min) / (max - min)) * 100;
+            rangeValue.textContent = value;
+            rangeValue.style.left = percent + '%';
+        });
+    });
+
     document.getElementById('surveyForm').onsubmit = function(event) {
         event.preventDefault();
         var formData = new FormData(event.target);
@@ -100,7 +160,7 @@
         console.log(data); // Per visualizzare le risposte nel console log del browser
         alert('Grazie per aver partecipato al survey!');
         window.location.href = 'index.php'; // Modifica 'index.php' con l'URL della tua pagina iniziale
-        
+
     };
 </script>
 </body>

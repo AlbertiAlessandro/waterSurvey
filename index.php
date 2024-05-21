@@ -70,8 +70,11 @@ if (isset($_GET['action'])) {
     }
 
 
+
 }
 $user = Util\Authenticator::getUser();
+
+
 
 
 if(isset($_POST['email'])){
@@ -86,6 +89,7 @@ if($user == null){
 }
 
 if(isset($_GET['action']) && $_GET['action'] ==='login'){
+
 
     Util\MailGestion::enter($user['email']);
 }

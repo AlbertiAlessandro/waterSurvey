@@ -2,8 +2,8 @@
 <project version="4">
   <component name="WebServers">
     <option name="servers">
-      <webServer id="61c0b33f-324e-4547-8b7d-4abb1e727e59" name="localhost" url="http://localhost">
-        <fileTransfer mountedRoot="C:\Users\Alessandro\Desktop\xampp\htdocs" accessType="MOUNT" port="0" />
+      <webServer id="61c0b33f-324e-4547-8b7d-4abb1e727e59" name="localhost" url="http://localhost/water_survey">
+        <fileTransfer mountedRoot="C:\Users\Alessandro\Desktop\xampp\htdocs\water_survey" accessType="MOUNT" port="0" />
       </webServer>
     </option>
   </component>
