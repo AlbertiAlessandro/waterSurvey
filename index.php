@@ -70,16 +70,23 @@ if (isset($_GET['action'])) {
     }
 
     if ($action === 'profile'){
+        $user = Util\Authenticator::getUser();
+        $username = $user['username'];
         echo $template->render('profile', [
-
+            'username' => $username
         ]);
         exit(0);
+    }
+
+    if ($action === 'finish'){
+
     }
 
 
 
 }
 $user = Util\Authenticator::getUser();
+$username = $user['username'];
 
 
 
