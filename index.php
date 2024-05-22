@@ -69,6 +69,13 @@ if (isset($_GET['action'])) {
         }
     }
 
+    if ($action === 'profile'){
+        echo $template->render('profile', [
+
+        ]);
+        exit(0);
+    }
+
 
 
 }
