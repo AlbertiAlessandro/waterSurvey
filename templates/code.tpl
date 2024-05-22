@@ -1,9 +1,13 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Verifica Codice</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css"  rel="stylesheet" />
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -30,47 +34,21 @@
             margin-bottom: 20px;
             color: #333;
         }
-
-        input[type="text"], input[type="password"] {
-            margin-bottom: 15px;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            width: calc(100% - 16px);
-        }
-
-        button, input[type='submit'] {
-            margin-bottom: 10px;
-            padding: 8px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            width: calc(100% - 16px);
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
-        #result {
-            margin-top: 10px;
-            font-size: 14px;
-        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Verifica Codice</h1>
-        <p>Inserisci il codice che hai ricevuto nella mail</p>
+        <h1>Check Code</h1>
+        <p>Enter the code you received in the email</p>
         <form id="codeForm" method='post' action='index.php?action=resetpassword'>
-            <input name='code' id="codeInput" type="text" placeholder="Codice" required>
+            <input  required placeholder="Token" type="text" name="code" id="codeInput" class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <br>
             <input name='email' value='<?=$email?>' hidden>
-            <input type='submit'>
+            <input type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+
         </form>
-        <button type="button" onclick="reloadPage()">Riinvia Mail</button>
-        <button type="button" onclick="goBack()">Back</button>
+        <button type="button" onclick='reloadPage()' class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Resend Email</button>
+        <button type="button" onclick='goBack()' class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Back</button>
     </div>
 
     <script>
@@ -81,5 +59,8 @@
             window.location.href = 'index.php';
         }
     </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+
 </body>
 </html>
