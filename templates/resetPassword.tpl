@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css"  rel="stylesheet" />
+
     <style>
 body {
     font-family: Arial, sans-serif;
@@ -72,9 +76,12 @@ input[type="submit"]:hover {
             <input id='confirmPassword'type="password" placeholder="Conferma Password">
             <input name="email"  value='<?=$email?>'hidden>
             <input type="submit" value="Reset Password">
+
         </form>
         <div class="error-message" id="errorMessage"></div>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+
 </body>
 <script>
  function validateForm() {
