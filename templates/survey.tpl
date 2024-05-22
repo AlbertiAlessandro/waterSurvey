@@ -43,61 +43,6 @@
             width: 100%;
         }
 
-        input[type="range"] {
-            -webkit-appearance: none;
-            width: 100%;
-            height: 20px;
-            background: #d3d3d3;
-            border-radius: 10px;
-            outline: none;
-            opacity: 0.7;
-            -webkit-transition: .2s;
-            transition: opacity .2s;
-        }
-
-        input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 20px;
-            height: 20px;
-            background: #007BFF;
-            border-radius: 50%;
-            cursor: pointer;
-            position: relative;
-            z-index: 2;
-        }
-
-        input[type="range"]::-moz-range-thumb {
-            width: 20px;
-            height: 20px;
-            background: #007BFF;
-            border-radius: 50%;
-            cursor: pointer;
-            position: relative;
-            z-index: 2;
-        }
-
-        .range-value {
-            position: absolute;
-            bottom: -25px;
-            transform: translateX(-50%);
-        }
-
-        .submit-btn {
-            display: block;
-            width: 100%;
-            padding: 10px;
-            border: none;
-            background-color: #007BFF;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-
-        .submit-btn:hover {
-            background-color: #0056b3;
-        }
     </style>
 </head>
 <body>
@@ -106,7 +51,9 @@
     <form id="surveyForm" method="post">
         <?php foreach ($domande as $domanda): ?>
         <div class="question">
-            <h2><?php echo htmlspecialchars($domanda['domanda']); ?></h2>
+
+            <p class="w-full text-3xl font-semibold leading-normal text-gray-900 dark:text-white"><?php echo htmlspecialchars($domanda['domanda']); ?></p>
+
             <div class="options">
                 <?php if ($domanda['tipo'] == 2): ?>
                 <!-- Campo di testo per domande a risposta aperta -->
@@ -116,15 +63,14 @@
                 <?php elseif ($domanda['tipo'] == 3): ?>
                 <!-- Scala scorrevole per domande a risposta chiusa -->
                 <div class="options">
-                    <input type="range" name="question<?php echo $domanda['id']; ?>" min="1" max="7" value="1">
-                    <span class="range-value">1</span>
+                    <input id="minmax-range" name="question<?php echo $domanda['id']; ?>" type="range" min="0" max="7" value="5" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700">
                 </div>
                 <?php elseif (isset($opzioni[$domanda['id']])): ?>
                 <!-- Radio buttons per domande a risposta chiusa non scorrevoli -->
                 <?php foreach ($opzioni[$domanda['id']] as $opzione): ?>
                 <label>
-                    <input type="radio" name="question<?php echo $domanda['id']; ?>" value="<?php echo htmlspecialchars($opzione['risposta']); ?>">
-                    <?php echo htmlspecialchars($opzione['risposta']); ?>
+                        <input id="default-radio-1" type="radio" value="<?php echo htmlspecialchars($opzione['risposta']); ?>" name="question<?php echo $domanda['id']; ?>" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                        <?php echo htmlspecialchars($opzione['risposta']); ?>
                 </label><br>
                 <?php endforeach; ?>
                 <?php else: ?>
