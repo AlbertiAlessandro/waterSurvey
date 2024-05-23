@@ -53,6 +53,8 @@ class UserRepository{
         else
             return $row = $stmt->fetch();
     }
+
+
     public static function getUserByEmail(string $email) {
         $pdo = Connection::getInstance();
         $sql = 'SELECT * FROM user WHERE email=:email';

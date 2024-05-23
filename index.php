@@ -72,8 +72,11 @@ if (isset($_GET['action'])) {
     if ($action === 'profile'){
         $user = Util\Authenticator::getUser();
         $username = $user['username'];
+        $id_ruolo = $user['ruolo'];
+        $nome_ruolo = \Model\RuoloRepository::getRuolo($id_ruolo);
         echo $template->render('profile', [
-            'username' => $username
+            'username' => $username,
+            'nome_ruolo' => $nome_ruolo
         ]);
         exit(0);
     }
@@ -87,6 +90,8 @@ if (isset($_GET['action'])) {
 }
 $user = Util\Authenticator::getUser();
 $username = $user['username'];
+
+
 
 
 
