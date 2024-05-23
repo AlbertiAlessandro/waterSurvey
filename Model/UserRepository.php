@@ -91,5 +91,19 @@ class UserRepository{
         );
     }
 
+    public static function numberUsers(){
+        $pdo = Connection::getInstance();
+        $sql = 'SELECT COUNT(*) as utenti FROM user WHERE ruolo = 2';
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+        $row = $stmt->fetch();
+        if ($row) {
+            return $row['utenti'];
+        } else {
+            return null;
+        }
+    }
+
+
 
 }

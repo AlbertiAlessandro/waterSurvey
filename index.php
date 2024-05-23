@@ -11,6 +11,10 @@ $template = new League\Plates\Engine('templates', 'tpl');
 
 $informazioni = \Model\QuestionarioRepository::listAll();
 
+//Informazioni per la pagina dell'admin
+$numero_utenti = UserRepository::numberUsers();
+$numero_survey = \Model\QuestionarioRepository::numberSurveys();
+
 if (isset($_GET['action'])) {
     $action = $_GET['action'];
     if ($action === 'registrazione') {
@@ -90,7 +94,7 @@ if (isset($_GET['action'])) {
 }
 $user = Util\Authenticator::getUser();
 $username = $user['username'];
-
+$id_user = $user['id'];
 
 
 
@@ -116,6 +120,9 @@ echo $template->render('surveyDashboard', [
     'informazioni' => $informazioni
 ]);
 exit(0);
+
+
+
 
 
 

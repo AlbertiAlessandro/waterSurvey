@@ -58,7 +58,7 @@
                 <?php if ($domanda['tipo'] == 2): ?>
                 <!-- Campo di testo per domande a risposta aperta -->
                 <label>
-                    <input type="text" name="question<?php echo $domanda['id']; ?>" placeholder="Inserisci una risposta">
+                    <input type="text" name="question<?php echo $domanda['id']; ?>" placeholder="Enter a response" class="w-full">
                 </label>
                 <?php elseif ($domanda['tipo'] == 3): ?>
                 <!-- Scala scorrevole per domande a risposta chiusa -->
@@ -75,12 +75,12 @@
                 <?php endforeach; ?>
                 <?php else: ?>
                 <!-- Messaggio di debug: nessuna risposta trovata per la domanda corrente -->
-                <p>Errore: Nessuna risposta trovata per la domanda ID <?php echo htmlspecialchars($domanda['id']); ?></p>
+                <p>Error: No answer found for question ID <?php echo htmlspecialchars($domanda['id']); ?></p>
                 <?php endif; ?>
             </div>
         </div>
         <?php endforeach; ?>
-        <button data-modal-target="popup-modal" data-modal-toggle="popup-modal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Invia Risposte</button>
+        <button data-modal-target="popup-modal" data-modal-toggle="popup-modal" class="w-full block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Submit replies</button>
     </form>
 </div>
 

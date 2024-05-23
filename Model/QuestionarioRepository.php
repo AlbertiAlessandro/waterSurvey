@@ -91,6 +91,21 @@ class QuestionarioRepository
     }
 
 
+    public static function numberSurveys(){
+        $pdo = Connection::getInstance();
+        $sql = 'SELECT COUNT(*) as survey FROM water_survey.survey';
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+        $row = $stmt->fetch();
+        if ($row) {
+            return $row['survey'];
+        } else {
+            return null;
+        }
+    }
+
+
+
 
 
 }
