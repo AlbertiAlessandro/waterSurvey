@@ -119,9 +119,9 @@
         <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white"><?= $username?></h5>
         <span class="text-sm text-gray-500 dark:text-gray-400"><?= $nome_ruolo?></span>
         <div class="flex mt-4 md:mt-6">
-            <button type="button" onclick="logout()" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Logout</button>
             <button onclick="change()" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Back</button>
-        </div>
+            <button type="button" onclick="logout()" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Logout</button>
+            </div>
     </div>
 </div>
 </div>
