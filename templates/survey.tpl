@@ -132,7 +132,6 @@
             data[pair[0]] = pair[1];
         }
         console.log(data); // Per visualizzare le risposte nel console log del browser
-        alert('Grazie per aver partecipato al survey!');
         window.location.href = 'index.php'; // Modifica 'index.php' con l'URL della tua pagina iniziale
 
     };

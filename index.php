@@ -93,8 +93,7 @@ if (isset($_GET['action'])) {
 
 }
 $user = Util\Authenticator::getUser();
-$username = $user['username'];
-$id_user = $user['id'];
+
 
 
 
@@ -110,11 +109,19 @@ if($user == null){
         echo "<script>alert('Nessun account con questo username è presente')</script>";
     exit(0);
 }
-
+$username = $user['username'];
+$id_user = $user['id'];
 if(isset($_GET['action']) && $_GET['action'] ==='login'){
 
 
     Util\MailGestion::enter($user['email']);
+}
+if($user['ruolo']=='1'){
+    echo $template->render('admin', [
+        'numero_utenti' => $numero_utenti,
+        'numero_survey' => $numero_survey
+    ]);
+    exit(0);
 }
 echo $template->render('surveyDashboard', [
     'informazioni' => $informazioni
