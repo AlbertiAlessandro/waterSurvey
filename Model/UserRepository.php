@@ -27,9 +27,9 @@ class UserRepository{
 
         return $row;
     }
-    public static function insertUser(string $username, string $password, string $nome, string $cognome, string $email){
+    public static function insertUser(string $username, string $password, string $nome, string $cognome, string $email, string $image){
         $pdo = Connection::getInstance();
-        $sql = 'INSERT INTO user (username, password,nome,cognome,email) VALUES (:username, :password, :nome, :cognome, :email)';
+        $sql = 'INSERT INTO user (username, password,nome,cognome,email,image,ruolo) VALUES (:username, :password, :nome, :cognome, :email, :image, :ruolo)';
         $stmt = $pdo->prepare($sql);
         $stmt->execute([
             'username' => $username,
@@ -37,6 +37,8 @@ class UserRepository{
             'nome' => $nome,
             'cognome' => $cognome,
             'email' => $email,
+            'image' =>$image,
+            'ruolo'=>'2'
         ]);
 
     }

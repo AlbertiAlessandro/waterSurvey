@@ -18,7 +18,9 @@ $numero_survey = \Model\QuestionarioRepository::numberSurveys();
 if (isset($_GET['action'])) {
     $action = $_GET['action'];
     if ($action === 'registrazione') {
-        echo $template->render('registration');
+        echo $template->render('registration', [
+
+        ]);
         exit(0);
     }
     if ($action === 'logout') {
@@ -77,10 +79,12 @@ if (isset($_GET['action'])) {
         $user = Util\Authenticator::getUser();
         $username = $user['username'];
         $id_ruolo = $user['ruolo'];
+        $image=$user['image'];
         $nome_ruolo = \Model\RuoloRepository::getRuolo($id_ruolo);
         echo $template->render('profile', [
             'username' => $username,
-            'nome_ruolo' => $nome_ruolo
+            'nome_ruolo' => $nome_ruolo,
+            'image'=>$image
         ]);
         exit(0);
     }
@@ -99,9 +103,20 @@ $user = Util\Authenticator::getUser();
 
 
 
+
 if(isset($_POST['email'])){
-    Model\UserRepository::insertUser($_POST['username'],password_hash($_POST['password'],PASSWORD_DEFAULT),$_POST['nome'],$_POST['cognome'],$_POST['email']);
-}
+    var_dump($_FILES['immagine']);
+    if(isset($_FILES['immagine']) && $_FILES['immagine']['name']!='') {
+        $immagine = basename($_FILES['immagine']['name']);
+        $nome_univoco = sha1($_FILES['immagine']['name'] . rand()) . '.jpg';
+        $uploadfile = UPLOAD_DIR . '/' . $nome_univoco;
+        move_uploaded_file($_FILES['immagine']['tmp_name'], $uploadfile);
+    }
+    if($_FILES['immagine']['name']==''){
+        $nome_univoco="user.jpg";
+    }
+        Model\UserRepository::insertUser($_POST['username'],password_hash($_POST['password'],PASSWORD_DEFAULT),$_POST['nome'],$_POST['cognome'],$_POST['email'], $nome_univoco);
+    }
 
 if($user == null){
     echo $template->render('login');

@@ -115,7 +115,7 @@
         </div>
     </div>
     <div class="flex flex-col items-center pb-10">
-        <img class="w-24 h-24 mb-3 rounded-full shadow-lg" src="https://flowbite.com/docs/images/people/profile-picture-3.jpg" alt="Bonnie image"/>
+        <img class="w-48 h-48 mb-3 rounded-full shadow-lg" src="image/<?=$image?>"/>
         <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white"><?= $username?></h5>
         <span class="text-sm text-gray-500 dark:text-gray-400"><?= $nome_ruolo?></span>
         <div class="flex mt-4 md:mt-6">
