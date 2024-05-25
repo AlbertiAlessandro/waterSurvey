@@ -12,6 +12,7 @@ $template = new League\Plates\Engine('templates', 'tpl');
 $informazioni = \Model\QuestionarioRepository::listAll();
 
 //Informazioni per la pagina dell'admin
+$utenti = UserRepository::listAll();
 $numero_utenti = UserRepository::numberUsers();
 $numero_survey = \Model\QuestionarioRepository::numberSurveys();
 
@@ -105,7 +106,6 @@ $user = Util\Authenticator::getUser();
 
 
 if(isset($_POST['email'])){
-    var_dump($_FILES['immagine']);
     if(isset($_FILES['immagine']) && $_FILES['immagine']['name']!='') {
         $immagine = basename($_FILES['immagine']['name']);
         $nome_univoco = sha1($_FILES['immagine']['name'] . rand()) . '.jpg';
@@ -115,7 +115,7 @@ if(isset($_POST['email'])){
     if($_FILES['immagine']['name']==''){
         $nome_univoco="user.jpg";
     }
-        Model\UserRepository::insertUser($_POST['username'],password_hash($_POST['password'],PASSWORD_DEFAULT),$_POST['nome'],$_POST['cognome'],$_POST['email'], $nome_univoco);
+    Model\UserRepository::insertUser($_POST['username'],password_hash($_POST['password'],PASSWORD_DEFAULT),$_POST['nome'],$_POST['cognome'],$_POST['email'], $nome_univoco);
     }
 
 if($user == null){
