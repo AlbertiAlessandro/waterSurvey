@@ -134,7 +134,8 @@ if(isset($_GET['action']) && $_GET['action'] ==='login'){
 if($user['ruolo']=='1'){
     echo $template->render('admin', [
         'numero_utenti' => $numero_utenti,
-        'numero_survey' => $numero_survey
+        'numero_survey' => $numero_survey,
+        'utenti' => $utenti
     ]);
     exit(0);
 }
