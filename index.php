@@ -97,6 +97,12 @@ if (isset($_GET['action'])) {
         exit(0);
     }
 
+    if ($action === 'feedback'){
+        echo $template->render('feedback', [
+        ]);
+        exit(0);
+    }
+
     if ($action === 'delete' && isset($_GET['id'])){
         $id = $_GET['id'];
         UserRepository::removeUser($id);
