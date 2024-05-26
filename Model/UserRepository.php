@@ -45,7 +45,7 @@ class UserRepository{
 
     public static function removeUser($id){
         $pdo = Connection::getInstance();
-        $sql = 'DELETE FROM user WHERE id = :id';
+        $sql = 'DELETE FROM water_survey.user WHERE id = :id';
         $stmt = $pdo->prepare($sql);
         $stmt->execute(['id' => $id]);
     }
@@ -118,7 +118,7 @@ class UserRepository{
     public static function listAll(): array{
         try {
             $pdo = Connection::getInstance();
-            $sql = 'SELECT * FROM water_survey.user'; // Assicurati che il nome della colonna sia corretto
+            $sql = 'SELECT * FROM water_survey.user WHERE ruolo = 2'; // Assicurati che il nome della colonna sia corretto
             $stmt = $pdo->prepare($sql);
             $stmt->execute([]);
             return $stmt->fetchAll(); // Utilizza PDO::FETCH_ASSOC per ottenere solo un array associativo

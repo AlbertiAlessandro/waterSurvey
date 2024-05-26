@@ -97,6 +97,16 @@ if (isset($_GET['action'])) {
         exit(0);
     }
 
+    if ($action === 'delete' && isset($_GET['id'])){
+        $id = $_GET['id'];
+        UserRepository::removeUser($id);
+        $utenti = UserRepository::listAll();
+        echo $template->render('users', [
+            'utenti' => $utenti
+        ]);
+        exit(0);
+    }
+
     if ($action === 'finish'){
 
     }
