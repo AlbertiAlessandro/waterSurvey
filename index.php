@@ -90,6 +90,13 @@ if (isset($_GET['action'])) {
         exit(0);
     }
 
+    if ($action === 'visitUsers'){
+        echo $template->render('users', [
+            'utenti' => $utenti
+        ]);
+        exit(0);
+    }
+
     if ($action === 'finish'){
 
     }
