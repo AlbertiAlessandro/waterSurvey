@@ -42,6 +42,15 @@ class UserRepository{
         ]);
 
     }
+
+    public static function removeUser($id){
+        $pdo = Connection::getInstance();
+        $sql = 'DELETE FROM user WHERE id = :id';
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(['id' => $id]);
+    }
+
+
     public static function getUser(string $username){
         $pdo = Connection::getInstance();
         $sql = 'SELECT * FROM user WHERE username=:username';

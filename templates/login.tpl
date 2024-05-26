@@ -40,11 +40,6 @@
             text-align: center;
         }
 
-        .subtitle {
-            text-align: center;
-            margin-bottom: 20px;
-            color: #666;
-        }
     </style>
 </head>
 <body>
