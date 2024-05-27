@@ -132,7 +132,6 @@ CREATE TABLE `survey` (
   `descrizione` varchar(255) DEFAULT NULL,
   `creatore` int(10) unsigned NOT NULL,
   `numero_domande` int(10) unsigned DEFAULT NULL,
-  `completato` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `creatore` (`creatore`),
   CONSTRAINT `creatore` FOREIGN KEY (`creatore`) REFERENCES `user` (`id`)
@@ -143,7 +142,7 @@ CREATE TABLE `survey` (
 -- Dumping data for table `survey`
 --
 
-INSERT INTO `survey` VALUES (2,'Personal Water Usage Survey','This survey aims to understand your daily water usage habits and preferences. The information collected will be used for educational purposes.',6,10,0),(3,'Water Quality Self-Assessment Survey','This survey aims to gather your self-assessment on various aspects of water quality in your area. The information collected will be used for educational purposes.',6,10,0);
+INSERT INTO `survey` VALUES (2,'Personal Water Usage Survey','This survey aims to understand your daily water usage habits and preferences. The information collected will be used for educational purposes.',6,10),(3,'Water Quality Self-Assessment Survey','This survey aims to gather your self-assessment on various aspects of water quality in your area. The information collected will be used for educational purposes.',6,10);
 
 --
 -- Table structure for table `tipo_domanda`
@@ -205,4 +204,4 @@ INSERT INTO `user` VALUES (5,'albe','$2y$10$3BNLdqF8zUwruw440XayE.a2dRXyoZO3ATWA
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-27 10:49:36
+-- Dump completed on 2024-05-27 10:59:26
