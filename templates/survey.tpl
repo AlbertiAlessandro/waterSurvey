@@ -58,12 +58,12 @@
                 <?php if ($domanda['tipo'] == 2): ?>
                 <!-- Campo di testo per domande a risposta aperta -->
                 <label>
-                    <input type="text" name="question<?php echo $domanda['id']; ?>" placeholder="Enter a response" class="w-full">
+                    <input type="text" name="question<?php echo $domanda['id']; ?>" placeholder="Inserisci una risposta" class="w-full p-2 border rounded-lg shadow-sm focus:ring focus:ring-blue-500 focus:outline-none">
                 </label>
                 <?php elseif ($domanda['tipo'] == 3): ?>
-                <!-- Scala scorrevole per domande a risposta chiusa -->
-                <div class="options">
-                    <input id="minmax-range" name="question<?php echo $domanda['id']; ?>" type="range" min="0" max="7" value="5" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700">
+                <!-- Scala scorrevole per autovalutazione -->
+                <div class="relative mb-6">
+                    <input id="range-<?php echo $domanda['id']; ?>" name="question<?php echo $domanda['id']; ?>" type="range" min="0" max="7" value="5" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700">
                 </div>
                 <?php elseif (isset($opzioni[$domanda['id']])): ?>
                 <!-- Radio buttons per domande a risposta chiusa non scorrevoli -->

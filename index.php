@@ -16,6 +16,7 @@ $utenti = UserRepository::listAll();
 $numero_utenti = UserRepository::numberUsers();
 $numero_survey = \Model\QuestionarioRepository::numberSurveys();
 
+
 if (isset($_GET['action'])) {
     $action = $_GET['action'];
     if ($action === 'registrazione') {
