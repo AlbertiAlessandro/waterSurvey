@@ -66,6 +66,21 @@ class UserRepository{
     }
 
 
+    public static function getUserByID(int $id) {
+        $pdo = Connection::getInstance();
+        $sql = 'SELECT * FROM user WHERE id=:id';
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+                'id' => $id
+            ]
+        );
+        if($stmt->rowCount() == 0)
+            return null;
+        else
+            return $row = $stmt->fetch();
+    }
+
+
     public static function getUserByEmail(string $email) {
         $pdo = Connection::getInstance();
         $sql = 'SELECT * FROM user WHERE email=:email';

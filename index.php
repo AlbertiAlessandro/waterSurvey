@@ -16,6 +16,8 @@ $informazioni = \Model\QuestionarioRepository::listAll();
 $utenti = UserRepository::listAll();
 $numero_utenti = UserRepository::numberUsers();
 $numero_survey = \Model\QuestionarioRepository::numberSurveys();
+$numero_feedback = \Model\RispostaRepository::numberOfFeedback();
+
 
 
 if (isset($_GET['action'])) {
@@ -100,7 +102,24 @@ if (isset($_GET['action'])) {
     }
 
     if ($action === 'feedback'){
+        $feedbacks = \Model\RispostaRepository::getFeedback();
+        $feedbackWithInformations = [];
+
+        foreach ($feedbacks as $feedback) {
+            $user = UserRepository::getUserByID($feedback['id_utente']);
+            $username = $user['username'];
+            $image = $user['image'];
+
+            $feedbackWithInformations[] = [
+                'id_utente' => $feedback['id_utente'],
+                'risposta' => $feedback['risposta'],
+                'username' => $username,
+                'image' => $image
+            ];
+        }
+
         echo $template->render('feedback', [
+            'feedbackWithInformations' => $feedbackWithInformations
         ]);
         exit(0);
     }
@@ -165,7 +184,8 @@ if($user['ruolo']=='1'){
     echo $template->render('admin', [
         'numero_utenti' => $numero_utenti,
         'numero_survey' => $numero_survey,
-        'utenti' => $utenti
+        'utenti' => $utenti,
+        'numero_feedback' => $numero_feedback
     ]);
     exit(0);
 }

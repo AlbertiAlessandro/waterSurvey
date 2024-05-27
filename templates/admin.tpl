@@ -26,12 +26,25 @@
             </a>
         </div>
 
-        <!-- Surveys Card -->
+        <!-- Feedback Card -->
         <div class="w-96 h-64 bg-white border border-gray-200 rounded-lg shadow-lg p-6 flex flex-col justify-between">
-            <h5 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Surveys available</h5>
-            <p class="text-lg font-normal text-gray-700 dark:text-gray-400"><?=$numero_survey?></p>
+            <h5 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Feedback</h5>
+            <p class="text-lg font-normal text-gray-700 dark:text-gray-400"><?=$numero_feedback?></p>
             <a href="index.php?action=feedback" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                 Visit Feedback
+                <svg class="ml-2 w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                </svg>
+            </a>
+        </div>
+
+
+        <!-- Survey Card -->
+        <div class="w-96 h-64 bg-white border border-gray-200 rounded-lg shadow-lg p-6 flex flex-col justify-between">
+            <h5 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Surveys</h5>
+            <p class="text-lg font-normal text-gray-700 dark:text-gray-400"><?=$numero_survey?></p>
+            <a href="index.php?action=visitSurvey" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                Visit Surveys
                 <svg class="ml-2 w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
                 </svg>

@@ -36,4 +36,31 @@ class RispostaRepository
             return $result;
         }
     }
+
+    public static function numberOfFeedback(): int {
+        $pdo = Connection::getInstance();
+        $sql = 'SELECT COUNT(*) AS count FROM response WHERE id_domanda % 10 = 0';
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetch();
+        return (int) $result['count'];
+    }
+
+
+    public static function getFeedback(): array {
+        try {
+            $pdo = Connection::getInstance();
+            $sql = 'SELECT id_utente, risposta FROM response WHERE id_domanda % 10 = 0';
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute();
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+        } catch (PDOException $e) {
+            // Log the exception or handle it as needed
+            error_log($e->getMessage());
+            return [];
+        }
+    }
+
+
 }
