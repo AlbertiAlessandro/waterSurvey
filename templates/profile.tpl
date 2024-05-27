@@ -1,56 +1,22 @@
-<!DOCTYPE html>
-<html lang="it">
+<!doctype html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestione Questionari</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Your profile</title>
+
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css"  rel="stylesheet" />
-
-    <style>
-
-        @media (max-width: 600px) {
-            .navbar {
-                flex-direction: column;
-            }
-
-            .back-link, .user-profile {
-                margin-bottom: 10px;
-            }
-        }
-
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
-            line-height: 1.6;
-        }
-
-        .container {
-            width: 80%;
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-
-        .card-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-        }
-
-
-    </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
 </head>
+<style>
+
+    .center-container {
+        display: grid;
+        place-items: center;
+        height: 80vh;
+    }
+</style>
 <body>
 
 
@@ -124,56 +90,49 @@
     </div>
 </nav>
 
-<div class="container">
-    <div class="card-container">
-        <?php
-// Ottieni le informazioni dei questionari
-$informazioni = \Model\QuestionarioRepository::listAll();
-
-if (is_array($informazioni) && count($informazioni) > 0):
-        foreach ($informazioni as $informazione):
-        ?>
-        <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><?= htmlspecialchars($informazione['nome']) ?></h5>
-            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400"><?= htmlspecialchars($informazione['descrizione']) ?></p>
-            <a href="index.php?action=survey&id=<?= $informazione['id'] ?>" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                Complete the survey
-                <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-                </svg>
-            </a>
-            <!--
-            <div class="container">
-                <div id="quizStatus">
-                    <?php if ($informazione['completato'] == 0): ?>
-                    <p class="text-red-500">Not Completed</p>
-                    <?php else: ?>
-                    <p class="text-green-500">Completed</p>
-                    <?php endif; ?>
-                </div>
-            </div>
-            -->
+<div class="center-container">
+<div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <div class="flex justify-end px-4 pt-4">
+        <button id="dropdownButton" data-dropdown-toggle="dropdown" class="inline-block text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-1.5" type="button">
+            <span class="sr-only">Open dropdown</span>
+            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 3">
+                <path d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z"/>
+            </svg>
+        </button>
+        <!-- Dropdown menu -->
+        <div id="dropdown" class="z-10 hidden text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+            <ul class="py-2" aria-labelledby="dropdownButton">
+                <li>
+                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Edit Profile</a>
+                </li>
+                <li>
+                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Reset Password</a>
+                </li>
+            </ul>
         </div>
-        <?php
-endforeach;
-endif;
-?>
-
-
+    </div>
+    <div class="flex flex-col items-center pb-10">
+        <img class="w-48 h-48 mb-3 rounded-full shadow-lg" src="image/<?=$image?>"/>
+        <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white"><?= $username?></h5>
+        <span class="text-sm text-gray-500 dark:text-gray-400"><?= $nome_ruolo?></span>
+        <div class="flex mt-4 md:mt-6">
+            <button onclick="change()" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Back</button>
+            <button type="button" onclick="logout()" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Logout</button>
+            </div>
     </div>
 </div>
-
-
-
-
+</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
-
-</body>
 <script>
-    function logout(){
-        window.location.href='index.php?action=logout'
+    function change() {
+        window.location.href = 'index.php';
     }
 
+    function logout() {
+        window.location.href = 'index.php?action=logout';
+    }
 </script>
+
+</body>
 </html>
