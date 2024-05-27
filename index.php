@@ -3,6 +3,7 @@
 require 'vendor/autoload.php';
 
 use Model\UserRepository;
+use Util\Authenticator;
 
 $template = new League\Plates\Engine('templates', 'tpl');
 
@@ -115,10 +116,15 @@ if (isset($_GET['action'])) {
     }
 
     if ($action === 'finish'){
+        $user=Util\Authenticator::getUser();
+        $id_survey = $_GET['id'];
+        $domande=Model\DomandaRepository::listAllDomandeByIDSurvey($id_survey);
+        foreach ($domande as $domanda) {
+            $name='question'.$domanda['id'];
+           Model\RispostaRepository::insert_response($_POST[$name],$id_survey,$user['id'],$domanda['id']);
+        }
 
     }
-
-
 
 }
 $user = Util\Authenticator::getUser();
@@ -163,6 +169,16 @@ if($user['ruolo']=='1'){
     ]);
     exit(0);
 }
+$informazioni = \Model\QuestionarioRepository::listAll();
+foreach ($informazioni as &$info) {
+    if($is_completed=\Model\RispostaRepository::getAll_responseByUtenteBySurvey($user['id'],$info['id'])===true    ){
+        $info['completato']=false;
+    }
+    else{
+        $info['completato']=true;
+    }
+}
+unset($info);
 echo $template->render('surveyDashboard', [
     'informazioni' => $informazioni
 ]);
