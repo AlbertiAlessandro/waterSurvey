@@ -130,10 +130,10 @@
 <div class="container">
     <div class="card-container">
         <?php
-        // Ottieni le informazioni dei questionari
-        $informazioni = \Model\QuestionarioRepository::listAll();
+// Ottieni le informazioni dei questionari
+$informazioni = \Model\QuestionarioRepository::listAll();
 
-        if (is_array($informazioni) && count($informazioni) > 0):
+if (is_array($informazioni) && count($informazioni) > 0):
         foreach ($informazioni as $informazione):
         ?>
         <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
@@ -145,12 +145,22 @@
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
                 </svg>
             </a>
-
+            <div class="container">
+                <div id="quizStatus">
+                    <?php if ($informazione['completato'] == 0): ?>
+                    <p class="text-red-500">Not Completed</p>
+                    <?php else: ?>
+                    <p class="text-green-500">Completed</p>
+                    <?php endif; ?>
+                </div>
+            </div>
         </div>
         <?php
-            endforeach;
-        endif;
-        ?>
+endforeach;
+endif;
+?>
+
+
     </div>
 </div>
 
@@ -165,5 +175,6 @@
     function logout(){
         window.location.href='index.php?action=logout'
     }
+
 </script>
 </html>
