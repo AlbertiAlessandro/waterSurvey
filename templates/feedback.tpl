@@ -24,7 +24,7 @@
                 <img class="rounded-full w-9 h-9" src="image/user.jpg" alt="profile picture">
                 <div class="ml-3 text-left">
                     <div class="font-medium dark:text-white"><?php echo htmlspecialchars($f['username'], ENT_QUOTES, 'UTF-8'); ?></div>
-                    <div class="text-sm text-gray-500 dark:text-gray-400">Position</div>
+                    <div class="text-sm text-gray-500 dark:text-gray-400"><?php echo htmlspecialchars($f['email'], ENT_QUOTES, 'UTF-8'); ?></div>
                 </div>
             </figcaption>
         </figure>

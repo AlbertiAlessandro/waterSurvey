@@ -108,13 +108,16 @@ if (isset($_GET['action'])) {
         foreach ($feedbacks as $feedback) {
             $user = UserRepository::getUserByID($feedback['id_utente']);
             $username = $user['username'];
+            $email = $user['email'];
             $image = $user['image'];
+            //Da gestire in che questionario sono stati mandati dei feedback
 
             $feedbackWithInformations[] = [
                 'id_utente' => $feedback['id_utente'],
                 'risposta' => $feedback['risposta'],
                 'username' => $username,
-                'image' => $image
+                'email' => $email,
+                'image' => $image,
             ];
         }
 
