@@ -22,7 +22,7 @@
 </head>
 <body>
 <div class="container mx-auto p-4">
-    <h1 class="text-3xl font-bold text-center text-gray-900 mb-8">Feedback Results</h1>
+    <h1 class="text-3xl font-bold text-center text-gray-900 mb-8">Surveys Results</h1>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <?php foreach ($informazioni as $informazione): ?>
         <div class="w-full bg-white border border-gray-200 rounded-lg shadow-lg p-6">
@@ -36,8 +36,8 @@
                 </div>
             </div>
             -->
-            <p class="text-lg font-medium text-gray-900">Survey: <?= $informazione['nome']; ?></p>
-            <p class="text-lg font-medium text-gray-900 mb-2">Description: <?= $informazione['descrizione']; ?></p>
+            <p class="text-2xl font-extrabold text-center text-gray-900 dark:text-white"><?= $informazione['nome']; ?></p>
+            <p class="text-1xl font-medium text-gray-900 dark:text-white">Users who carried out this survey: <?= $informazione['descrizione']; ?></p>
             <a href="index.php?action=viewSurvey&id=<?= $f['informazioni']['id']; ?>" class="inline-flex items-center mt-4 px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                 View Survey Details
                 <svg class="ml-2 w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
