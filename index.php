@@ -104,25 +104,37 @@ if (isset($_GET['action'])) {
     if ($action === 'feedback'){
         $feedbacks = \Model\RispostaRepository::getFeedback();
         $feedbackWithInformations = [];
-
         foreach ($feedbacks as $feedback) {
             $user = UserRepository::getUserByID($feedback['id_utente']);
             $username = $user['username'];
             $email = $user['email'];
             $image = $user['image'];
-            //Da gestire in che questionario sono stati mandati dei feedback
+            $id_questionario = $feedback['id_questionario'];
 
+            // Ottieni le informazioni del questionario tramite l'ID
+            $informazioniQuestionario = \Model\QuestionarioRepository::getInformazioniQuestionarioByID($id_questionario);
+            $nomeQuestionario = $informazioniQuestionario[0]['nome'] ?? 'Nome non disponibile'; // Assumendo che la colonna si chiami 'nome'
+
+            // Aggiungi le informazioni raccolte all'array
             $feedbackWithInformations[] = [
-                'id_utente' => $feedback['id_utente'],
-                'risposta' => $feedback['risposta'],
                 'username' => $username,
+                'risposta' => $feedback['risposta'],
                 'email' => $email,
                 'image' => $image,
+                'id_questionario' => $id_questionario,
+                'nome_questionario' => $nomeQuestionario,
             ];
         }
 
         echo $template->render('feedback', [
             'feedbackWithInformations' => $feedbackWithInformations
+        ]);
+        exit(0);
+    }
+
+    if ($action === 'viewSurvey'){
+        echo $template->render('viewSurvey', [
+            'informazioni' => $informazioni
         ]);
         exit(0);
     }

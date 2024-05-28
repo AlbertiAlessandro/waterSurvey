@@ -17,7 +17,7 @@
             ?>
         <figure class="flex flex-col items-center p-4 bg-white rounded-lg shadow-sm dark:bg-gray-800">
             <blockquote class="max-w-2xl text-gray-500 dark:text-gray-400 text-center">
-                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">User Feedback</h3>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white"><?=$f['nome_questionario']?></h3>
                 <p class="my-4"><?php echo htmlspecialchars($f['risposta'], ENT_QUOTES, 'UTF-8'); ?></p>
             </blockquote>
             <figcaption class="flex items-center">

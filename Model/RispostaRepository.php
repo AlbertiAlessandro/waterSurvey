@@ -50,7 +50,7 @@ class RispostaRepository
     public static function getFeedback(): array {
         try {
             $pdo = Connection::getInstance();
-            $sql = 'SELECT id_utente, risposta FROM response WHERE id_domanda % 10 = 0';
+            $sql = 'SELECT id_utente, risposta, id_questionario FROM response WHERE id_domanda % 10 = 0';
             $stmt = $pdo->prepare($sql);
             $stmt->execute();
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
