@@ -57,6 +57,14 @@ if (isset($_GET['action'])) {
         }
 
     }
+    if($action=='reseton'){
+        $user=Authenticator::getUser();
+
+        echo $template->render('resetPassword', [
+            'email' => $user['email']
+        ]);
+        exit(0);
+    }
     if($action==='completeReset'){
         Model\UserRepository::updatePassword(password_hash($_POST['password'],PASSWORD_DEFAULT),$_POST['email']);
         unset($_POST['email']);
@@ -125,7 +133,6 @@ if (isset($_GET['action'])) {
                 'nome_questionario' => $nomeQuestionario,
             ];
         }
-
         echo $template->render('feedback', [
             'feedbackWithInformations' => $feedbackWithInformations
         ]);
@@ -160,31 +167,48 @@ if (isset($_GET['action'])) {
 
     }
 
+    if($action==='insert_user'){
+        if(isset($_FILES['immagine']) && $_FILES['immagine']['name']!='') {
+            $immagine = basename($_FILES['immagine']['name']);
+            $nome_univoco = sha1($_FILES['immagine']['name'] . rand()) . '.jpg';
+            $uploadfile = UPLOAD_DIR . '/' . $nome_univoco;
+            move_uploaded_file($_FILES['immagine']['tmp_name'], $uploadfile);
+        }
+        if($_FILES['immagine']['name']==''){
+            $nome_univoco="user.jpg";
+        }
+
+        Model\UserRepository::insertUser($_POST['username'],password_hash($_POST['password'],PASSWORD_DEFAULT),$_POST['nome'],$_POST['cognome'],$_POST['email'], $nome_univoco);
+        unset($_POST['username']);
+    }
+    if($action==='review'){
+        $id_survey = intval($_GET['id']);
+        $user=Authenticator::getUser();
+        if ($id_survey > 0) {
+            $domande = \Model\DomandaRepository::listAllDomandeByIDSurvey($id_survey);
+            $temp = \Model\RispostaRepository::getAll_responseByUtenteBySurvey($user['id'],$id_survey);
+            $risposte=[];
+            foreach($temp as $t){
+                $risposte[$t['id_domanda']]=$t['risposta'];
+            }
+            $opzioni = \Model\OpzioneRepository::listAllOpzioniByIDSurvey($id_survey);
+            echo $template->render('view', [
+                'domande' => $domande,
+                'opzioni' => $opzioni,
+                'id_survey' => $id_survey,
+                'risposte'=> $risposte
+            ]);
+            exit(0);
+        }
+    }
+
 }
 $user = Util\Authenticator::getUser();
 
 
-
-
-
-
-
-if(isset($_POST['email'])){
-    if(isset($_FILES['immagine']) && $_FILES['immagine']['name']!='') {
-        $immagine = basename($_FILES['immagine']['name']);
-        $nome_univoco = sha1($_FILES['immagine']['name'] . rand()) . '.jpg';
-        $uploadfile = UPLOAD_DIR . '/' . $nome_univoco;
-        move_uploaded_file($_FILES['immagine']['tmp_name'], $uploadfile);
-    }
-    if($_FILES['immagine']['name']==''){
-        $nome_univoco="user.jpg";
-    }
-    Model\UserRepository::insertUser($_POST['username'],password_hash($_POST['password'],PASSWORD_DEFAULT),$_POST['nome'],$_POST['cognome'],$_POST['email'], $nome_univoco);
-}
-
 if($user == null){
     echo $template->render('login');
-    if(isset($_POST['username']))
+    if(isset($_POST['username']) && ((isset($_GET['action'])) && $_GET['action']!='insert_user'))
         echo "<script>alert('Nessun account con questo username è presente')</script>";
     exit(0);
 }
@@ -218,7 +242,6 @@ echo $template->render('surveyDashboard', [
     'informazioni' => $informazioni
 ]);
 exit(0);
-
 
 
 
