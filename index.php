@@ -16,6 +16,8 @@ $informazioni = \Model\QuestionarioRepository::listAll();
 $utenti = UserRepository::listAll();
 $numero_utenti = UserRepository::numberUsers();
 $numero_survey = \Model\QuestionarioRepository::numberSurveys();
+$numero_feedback = \Model\RispostaRepository::numberOfFeedback();
+
 
 
 if (isset($_GET['action'])) {
@@ -100,7 +102,38 @@ if (isset($_GET['action'])) {
     }
 
     if ($action === 'feedback'){
+        $feedbacks = \Model\RispostaRepository::getFeedback();
+        $feedbackWithInformations = [];
+        foreach ($feedbacks as $feedback) {
+            $user = UserRepository::getUserByID($feedback['id_utente']);
+            $username = $user['username'];
+            $email = $user['email'];
+            $image = $user['image'];
+            $id_questionario = $feedback['id_questionario'];
+
+            // Ottieni le informazioni del questionario tramite l'ID
+            $informazioniQuestionario = \Model\QuestionarioRepository::getInformazioniQuestionarioByID($id_questionario);
+            $nomeQuestionario = $informazioniQuestionario[0]['nome'] ?? 'Nome non disponibile'; // Assumendo che la colonna si chiami 'nome'
+
+            // Aggiungi le informazioni raccolte all'array
+            $feedbackWithInformations[] = [
+                'username' => $username,
+                'risposta' => $feedback['risposta'],
+                'email' => $email,
+                'image' => $image,
+                'id_questionario' => $id_questionario,
+                'nome_questionario' => $nomeQuestionario,
+            ];
+        }
         echo $template->render('feedback', [
+            'feedbackWithInformations' => $feedbackWithInformations
+        ]);
+        exit(0);
+    }
+
+    if ($action === 'viewSurvey'){
+        echo $template->render('viewSurvey', [
+            'informazioni' => $informazioni
         ]);
         exit(0);
     }
@@ -121,36 +154,48 @@ if (isset($_GET['action'])) {
         $domande=Model\DomandaRepository::listAllDomandeByIDSurvey($id_survey);
         foreach ($domande as $domanda) {
             $name='question'.$domanda['id'];
-           Model\RispostaRepository::insert_response($_POST[$name],$id_survey,$user['id'],$domanda['id']);
+            Model\RispostaRepository::insert_response($_POST[$name],$id_survey,$user['id'],$domanda['id']);
         }
 
+    }
+    
+    if($action==='insert_user'){
+        if(isset($_FILES['immagine']) && $_FILES['immagine']['name']!='') {
+            $immagine = basename($_FILES['immagine']['name']);
+            $nome_univoco = sha1($_FILES['immagine']['name'] . rand()) . '.jpg';
+            $uploadfile = UPLOAD_DIR . '/' . $nome_univoco;
+            move_uploaded_file($_FILES['immagine']['tmp_name'], $uploadfile);
+        }
+        if($_FILES['immagine']['name']==''){
+            $nome_univoco="user.jpg";
+        }
+        
+        Model\UserRepository::insertUser($_POST['username'],password_hash($_POST['password'],PASSWORD_DEFAULT),$_POST['nome'],$_POST['cognome'],$_POST['email'], $nome_univoco);
+        unset($_POST['username']);
+    }
+    if($action==='review'){
+        $id_survey = intval($_GET['id']);
+        $user=Authenticator::getUser();
+        if ($id_survey > 0) {
+            $domande = \Model\DomandaRepository::listAllDomandeByIDSurvey($id_survey);
+            $risposte = \Model\RispostaRepository::getAll_responseByUtenteBySurvey($user['id'],$id_survey);
+            $opzioni = \Model\OpzioneRepository::listAllOpzioniByIDSurvey($id_survey);
+            echo $template->render('survey', [
+                'domande' => $domande,
+                'opzioni' => $opzioni,
+                'id_survey' => $id_survey
+            ]);
+            exit(0);
+        }
     }
 
 }
 $user = Util\Authenticator::getUser();
 
 
-
-
-
-
-
-if(isset($_POST['email'])){
-    if(isset($_FILES['immagine']) && $_FILES['immagine']['name']!='') {
-        $immagine = basename($_FILES['immagine']['name']);
-        $nome_univoco = sha1($_FILES['immagine']['name'] . rand()) . '.jpg';
-        $uploadfile = UPLOAD_DIR . '/' . $nome_univoco;
-        move_uploaded_file($_FILES['immagine']['tmp_name'], $uploadfile);
-    }
-    if($_FILES['immagine']['name']==''){
-        $nome_univoco="user.jpg";
-    }
-    Model\UserRepository::insertUser($_POST['username'],password_hash($_POST['password'],PASSWORD_DEFAULT),$_POST['nome'],$_POST['cognome'],$_POST['email'], $nome_univoco);
-    }
-
 if($user == null){
     echo $template->render('login');
-    if(isset($_POST['username']))
+    if(isset($_POST['username']) && ((isset($_GET['action'])) && $_GET['action']!='insert_user'))
         echo "<script>alert('Nessun account con questo username è presente')</script>";
     exit(0);
 }
@@ -165,7 +210,8 @@ if($user['ruolo']=='1'){
     echo $template->render('admin', [
         'numero_utenti' => $numero_utenti,
         'numero_survey' => $numero_survey,
-        'utenti' => $utenti
+        'utenti' => $utenti,
+        'numero_feedback' => $numero_feedback
     ]);
     exit(0);
 }
@@ -183,7 +229,6 @@ echo $template->render('surveyDashboard', [
     'informazioni' => $informazioni
 ]);
 exit(0);
-
 
 
 

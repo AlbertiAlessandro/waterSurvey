@@ -98,6 +98,7 @@ const password =document.getElementById('floating_password');
 const repeatpassword =document.getElementById('floating_repeat_password');
 console.log(password)
 if(password.value!=repeatpassword.value) {
+    alert("Password and confirm password aren't equal")
     password.value=''
     repeatpassword.value=''
     return false

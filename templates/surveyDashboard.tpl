@@ -143,7 +143,7 @@ if (is_array($informazioni) && count($informazioni) > 0):
             </a>
             <?php else: ?>
             <p class="text-green-500">Completed</p>
-        <?php endif; ?>
+            <?php endif; ?>
         </div>
         <?php
 endforeach;
