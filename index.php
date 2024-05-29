@@ -57,6 +57,14 @@ if (isset($_GET['action'])) {
         }
 
     }
+    if($action=='reseton'){
+        $user=Authenticator::getUser();
+
+        echo $template->render('resetPassword', [
+            'email' => $user['email']
+        ]);
+        exit(0);
+    }
     if($action==='completeReset'){
         Model\UserRepository::updatePassword(password_hash($_POST['password'],PASSWORD_DEFAULT),$_POST['email']);
         unset($_POST['email']);
@@ -178,12 +186,17 @@ if (isset($_GET['action'])) {
         $user=Authenticator::getUser();
         if ($id_survey > 0) {
             $domande = \Model\DomandaRepository::listAllDomandeByIDSurvey($id_survey);
-            $risposte = \Model\RispostaRepository::getAll_responseByUtenteBySurvey($user['id'],$id_survey);
+            $temp = \Model\RispostaRepository::getAll_responseByUtenteBySurvey($user['id'],$id_survey);
+            $risposte=[];
+            foreach($temp as $t){
+                $risposte[$t['id_domanda']]=$t['risposta'];
+            }
             $opzioni = \Model\OpzioneRepository::listAllOpzioniByIDSurvey($id_survey);
-            echo $template->render('survey', [
+            echo $template->render('view', [
                 'domande' => $domande,
                 'opzioni' => $opzioni,
-                'id_survey' => $id_survey
+                'id_survey' => $id_survey,
+                'risposte'=> $risposte
             ]);
             exit(0);
         }

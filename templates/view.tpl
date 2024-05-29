@@ -47,8 +47,8 @@
 </head>
 <body>
 <div class="container">
-    <h1>Partecipa al Survey</h1>
-    <form id="surveyForm" method="post" action="index.php?action=finish&id= <?=$id_survey?>" >
+    <h1>See your survey</h1>
+    <form id="surveyForm" action="index.php" >
         <?php foreach ($domande as $domanda): ?>
         <div class="question">
             <p class="w-full text-3xl font-semibold leading-normal text-gray-900 dark:text-white"><?php echo htmlspecialchars($domanda['domanda']); ?></p>
@@ -57,12 +57,12 @@
                 <?php if ($domanda['tipo'] == 2): ?>
                 <!-- Campo di testo per domande a risposta aperta -->
                 <label>
-                    <input  type="text" name="question<?php echo $domanda['id']; ?>" placeholder="Inserisci una risposta" class="w-full p-2 border rounded-lg shadow-sm focus:ring focus:ring-blue-500 focus:outline-none">
+                    <input disabled type="text"  value="<?=$risposte [$domanda['id']]?>" placeholder="Inserisci una risposta" class="w-full p-2 border rounded-lg shadow-sm focus:ring focus:ring-blue-500 focus:outline-none">
                 </label>
                 <?php elseif ($domanda['tipo'] == 3): ?>
                 <!-- Scala scorrevole per autovalutazione -->
                 <div class="relative mb-6">
-                    <input id="range-<?php echo $domanda['id']; ?>" name="question<?php echo $domanda['id']; ?>" type="range" min="0" max="8" value="4" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700">
+                    <input id="range-<?php echo $domanda['id']; ?>"  type="range" min="0" max="8" value="<?=$risposte[$domanda['id']]?>" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700">
                     <span class="text-sm text-gray-500 dark:text-gray-400 absolute start-0 -bottom-6">Min (0)</span>
                     <span class="text-sm text-gray-500 dark:text-gray-400 absolute left-1/2 -translate-x-1/2 -bottom-6">Medium (4)</span>
                     <span class="text-sm text-gray-500 dark:text-gray-400 absolute end-0 -bottom-6">Max (8)</span>
@@ -71,8 +71,14 @@
                 <!-- Radio buttons per domande a risposta chiusa non scorrevoli -->
                 <?php foreach ($opzioni[$domanda['id']] as $opzione): ?>
                 <label>
-                    <input required id="default-radio-1" type="radio" value="<?php echo htmlspecialchars($opzione['risposta']); ?>" name="question<?php echo $domanda['id']; ?>" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                    <?php if($opzione['risposta']==$risposte [$domanda['id']]): ?>
+                    
+                    <input disabled checked id="default-radio-1" type="radio" value="<?php echo htmlspecialchars($opzione['risposta']); ?>"  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                    <?php else : ?>
+                    <input disabled  id="default-radio-1" type="radio" value="<?php echo htmlspecialchars($opzione['risposta']); ?>"  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                    <?php endif ; ?>
                     <?php echo htmlspecialchars($opzione['risposta']); ?>
+                
                 </label><br>
                 <?php endforeach; ?>
                 <?php else: ?>
@@ -82,7 +88,7 @@
             </div>
         </div>
         <?php endforeach; ?>
-        <button data-modal-target="popup-modal" data-modal-toggle="popup-modal" class="w-full block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="submit">Submit replies</button>
+        <button data-modal-target="popup-modal" data-modal-toggle="popup-modal" class="w-full block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="submit">Go back</button>
     </form>
 </div>
 
