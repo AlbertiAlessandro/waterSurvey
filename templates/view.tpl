@@ -62,7 +62,7 @@
                 <?php elseif ($domanda['tipo'] == 3): ?>
                 <!-- Scala scorrevole per autovalutazione -->
                 <div class="relative mb-6">
-                    <input id="range-<?php echo $domanda['id']; ?>"  type="range" min="0" max="8" value="<?=$risposte[$domanda['id']]?>" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700">
+                    <input disabled id="range-<?php echo $domanda['id']; ?>"  type="range" min="0" max="8" value="<?=$risposte[$domanda['id']]?>" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700">
                     <span class="text-sm text-gray-500 dark:text-gray-400 absolute start-0 -bottom-6">Min (0)</span>
                     <span class="text-sm text-gray-500 dark:text-gray-400 absolute left-1/2 -translate-x-1/2 -bottom-6">Medium (4)</span>
                     <span class="text-sm text-gray-500 dark:text-gray-400 absolute end-0 -bottom-6">Max (8)</span>
@@ -72,13 +72,13 @@
                 <?php foreach ($opzioni[$domanda['id']] as $opzione): ?>
                 <label>
                     <?php if($opzione['risposta']==$risposte [$domanda['id']]): ?>
-                    
+
                     <input disabled checked id="default-radio-1" type="radio" value="<?php echo htmlspecialchars($opzione['risposta']); ?>"  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                     <?php else : ?>
                     <input disabled  id="default-radio-1" type="radio" value="<?php echo htmlspecialchars($opzione['risposta']); ?>"  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                     <?php endif ; ?>
                     <?php echo htmlspecialchars($opzione['risposta']); ?>
-                
+
                 </label><br>
                 <?php endforeach; ?>
                 <?php else: ?>

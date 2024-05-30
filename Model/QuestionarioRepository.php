@@ -1,6 +1,8 @@
 <?php
 
 namespace Model;
+
+use Util\Authenticator;
 use Util\Connection;
 
 class QuestionarioRepository
@@ -56,7 +58,22 @@ class QuestionarioRepository
     }
 
 
+    public static function insertQuestionario(string $titolo,string $descrizione) {
+        $user=Authenticator::getUser();
+        $pdo = Connection::getInstance();
+        $sql = 'INSERT INTO survey (nome,descrizione,creatore) VALUES ( :titolo, :descrizione, :user)';
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+            'titolo'=>$titolo,
+            'descrizione'=>$descrizione,
+            'user'=>$user['id']
+        ]);
 
+        $sql='SELECT id FROM survey ORDER BY id DESC LIMIT 1';
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([]);
+        return $stmt->fetch();
+    }
 
 
 }

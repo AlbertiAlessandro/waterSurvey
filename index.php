@@ -140,8 +140,20 @@ if (isset($_GET['action'])) {
     }
 
     if ($action === 'viewSurvey'){
+        $utenti=UserRepository::listAll();
+        $response=[];
+        foreach ($informazioni as $info){
+            $response[$info['id']]=0;
+            foreach ($utenti as $utente){
+                if(Model\RispostaRepository::getAll_responseByUtenteBySurvey($utente['id'],$info['id'])!==true){
+                    $response[$info['id']]+=1;
+                }
+
+            }
+        }
         echo $template->render('viewSurvey', [
-            'informazioni' => $informazioni
+            'informazioni' => $informazioni,
+            'response'=>$response
         ]);
         exit(0);
     }
@@ -166,7 +178,7 @@ if (isset($_GET['action'])) {
         }
 
     }
-    
+
     if($action==='insert_user'){
         if(isset($_FILES['immagine']) && $_FILES['immagine']['name']!='') {
             $immagine = basename($_FILES['immagine']['name']);
@@ -177,7 +189,7 @@ if (isset($_GET['action'])) {
         if($_FILES['immagine']['name']==''){
             $nome_univoco="user.jpg";
         }
-        
+
         Model\UserRepository::insertUser($_POST['username'],password_hash($_POST['password'],PASSWORD_DEFAULT),$_POST['nome'],$_POST['cognome'],$_POST['email'], $nome_univoco);
         unset($_POST['username']);
     }
@@ -202,9 +214,45 @@ if (isset($_GET['action'])) {
         }
     }
 
+    if($action ==='pagecreate'){
+        echo $template->render('createSurvey', [
+            'numero'=>0
+        ]);
+        exit(0);
+    }
+    if($action==='addsurvey'){
+        $quest=Model\QuestionarioRepository::insertQuestionario($_POST['titolo'],$_POST['descrizione']);
+        $numero=1;
+        
+        while(isset($_POST['open_question'.$numero])){
+            Model\DomandaRepository::insertdomanda($_POST['open_question'.$numero],2,$quest['id']);
+            $numero++;
+        }
+        $total=$numero-1;
+        $numero=1;
+        while(isset($_POST['close_question'.$numero])){
+            $n=0;
+            Model\DomandaRepository::insertdomanda($_POST['close_question'.$numero],1,$quest['id']);
+            $id=Model\DomandaRepository::get_last_domanda();
+            while(isset($_POST['option'.$numero.$n])){
+                Model\OpzioneRepository::insertOpzione($_POST['option'.$numero.$n],$id['id'],$quest['id']);
+                var_dump($_POST['option'.$numero.$n]);
+                $n++;
+            }
+            $numero++;
+        }
+        $total+=$numero-1;
+        $numero=1;
+        while(isset($_POST['autovalutation'.$numero])){
+            Model\DomandaRepository::insertdomanda($_POST['autovalutation'.$numero],3,$quest['id']);
+
+            $numero++;
+        }
+        $total+=$numero-1;
+    }
 }
 $user = Util\Authenticator::getUser();
-
+ 
 
 if($user == null){
     echo $template->render('login');
@@ -242,7 +290,6 @@ echo $template->render('surveyDashboard', [
     'informazioni' => $informazioni
 ]);
 exit(0);
-
 
 
 

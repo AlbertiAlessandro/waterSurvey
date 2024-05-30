@@ -22,6 +22,24 @@ class DomandaRepository
     }
 
 
+    public static function insertdomanda(string $domanda,$tipo,$id) {
+        $pdo = Connection::getInstance();
+        $sql = 'INSERT INTO question (domanda,tipo,id_survey) VALUES ( :domanda , :tipo , :id )';
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+            'domanda'=>$domanda,
+            'tipo'=>$tipo,
+            'id'=>$id  
+        ]);
+    }
+    
+    public static function get_last_domanda(){
+        $pdo = Connection::getInstance();
+        $sql='SELECT id FROM question ORDER BY id DESC LIMIT 1';
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([]);
+        return $stmt->fetch();
+    }
 
 
 
