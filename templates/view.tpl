@@ -62,7 +62,7 @@
                 <?php elseif ($domanda['tipo'] == 3): ?>
                 <!-- Scala scorrevole per autovalutazione -->
                 <div class="relative mb-6">
-                    <input id="range-<?php echo $domanda['id']; ?>"  type="range" min="0" max="8" value="<?=$risposte[$domanda['id']]?>" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700">
+                    <input disabled id="range-<?php echo $domanda['id']; ?>"  type="range" min="0" max="8" value="<?=$risposte[$domanda['id']]?>" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700">
                     <span class="text-sm text-gray-500 dark:text-gray-400 absolute start-0 -bottom-6">Min (0)</span>
                     <span class="text-sm text-gray-500 dark:text-gray-400 absolute left-1/2 -translate-x-1/2 -bottom-6">Medium (4)</span>
                     <span class="text-sm text-gray-500 dark:text-gray-400 absolute end-0 -bottom-6">Max (8)</span>

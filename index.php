@@ -140,8 +140,20 @@ if (isset($_GET['action'])) {
     }
 
     if ($action === 'viewSurvey'){
+        $utenti=UserRepository::listAll();
+        $response=[];
+        foreach ($informazioni as $info){
+            $response[$info['id']]=0;
+            foreach ($utenti as $utente){
+                if(Model\RispostaRepository::getAll_responseByUtenteBySurvey($utente['id'],$info['id'])!==true){
+                    $response[$info['id']]+=1;
+                }
+
+            }
+        }
         echo $template->render('viewSurvey', [
-            'informazioni' => $informazioni
+            'informazioni' => $informazioni,
+            'response'=>$response
         ]);
         exit(0);
     }
