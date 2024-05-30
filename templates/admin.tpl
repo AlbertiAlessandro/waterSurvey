@@ -23,7 +23,7 @@
         <!-- Users Card -->
         <div class="w-96 h-64 bg-white border border-gray-200 rounded-lg shadow-lg p-6 flex flex-col justify-between">
             <h5 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Users</h5>
-            <p class="text-lg font-normal text-gray-700 dark:text-gray-400"><?=$numero_utenti?></p>
+            <p class="text-2xl font-bold text-gray-700 bg-blue-100 text-center p-4 rounded-lg"><?=$numero_utenti?></p>
             <a href="index.php?action=visitUsers" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                 Visit Users
                 <svg class="ml-2 w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
@@ -35,7 +35,7 @@
         <!-- Feedback Card -->
         <div class="w-96 h-64 bg-white border border-gray-200 rounded-lg shadow-lg p-6 flex flex-col justify-between">
             <h5 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Feedback</h5>
-            <p class="text-lg font-normal text-gray-700 dark:text-gray-400"><?=$numero_feedback?></p>
+            <p class="text-2xl font-bold text-gray-700 bg-blue-100 text-center p-4 rounded-lg"><?=$numero_feedback?></p>
             <a href="index.php?action=feedback" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                 Visit Feedback
                 <svg class="ml-2 w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
@@ -47,7 +47,7 @@
         <!-- Survey Card -->
         <div class="w-96 h-64 bg-white border border-gray-200 rounded-lg shadow-lg p-6 flex flex-col justify-between">
             <h5 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Surveys</h5>
-            <p class="text-lg font-normal text-gray-700 dark:text-gray-400"><?=$numero_survey?></p>
+            <p class="text-2xl font-bold text-gray-700 bg-blue-100 text-center p-4 rounded-lg"><?=$numero_survey?></p>
             <a href="index.php?action=viewSurvey" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                 Visit Surveys
                 <svg class="ml-2 w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">

@@ -39,7 +39,7 @@ class RispostaRepository
 
     public static function numberOfFeedback(): int {
         $pdo = Connection::getInstance();
-        $sql = 'SELECT COUNT(*) AS count FROM response WHERE id_domanda % 10 = 0';
+        $sql = 'SELECT COUNT(*) AS count FROM response WHERE id_domanda % 10 = 0 AND risposta IS NOT NULL AND risposta <> \'\'';
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
         $result = $stmt->fetch();
@@ -50,7 +50,8 @@ class RispostaRepository
     public static function getFeedback(): array {
         try {
             $pdo = Connection::getInstance();
-            $sql = 'SELECT id_utente, risposta, id_questionario FROM response WHERE id_domanda % 10 = 0';
+            // Aggiungi la condizione per escludere risposte vuote o null
+            $sql = 'SELECT id_utente, risposta, id_questionario FROM response WHERE id_domanda % 10 = 0 AND risposta IS NOT NULL AND risposta <> \'\'';
             $stmt = $pdo->prepare($sql);
             $stmt->execute();
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -61,6 +62,7 @@ class RispostaRepository
             return [];
         }
     }
+
 
 
 }

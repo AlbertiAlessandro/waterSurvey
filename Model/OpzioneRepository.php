@@ -27,6 +27,16 @@ class OpzioneRepository
         }
     }
 
+    public static function insertOpzione($risposta,$domanda,$questionario)  {
+        $pdo = Connection::getInstance();
+        $sql = 'INSERT INTO options (risposta,id_domanda,id_utente,id_questionario) VALUES ( :risposta, :domanda , 5 , :questionario)';
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+            'risposta'=>$risposta,
+            'domanda'=>$domanda,
+            'questionario'=>$questionario
+        ]);
 
+    }
 
 }

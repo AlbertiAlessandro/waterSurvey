@@ -9,12 +9,12 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body class="bg-gray-100 flex items-center justify-center h-screen">
+<body class="bg-gray-100 flex flex-col items-center justify-center h-screen">
 <div class="w-full max-w-2xl h-96 overflow-y-auto bg-white border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 dark:bg-gray-800 p-4">
     <div class="space-y-4">
         <?php
-        foreach ($feedbackWithInformations as $f) {
-            ?>
+            foreach ($feedbackWithInformations as $f) {
+                ?>
         <figure class="flex flex-col items-center p-4 bg-white rounded-lg shadow-sm dark:bg-gray-800">
             <blockquote class="max-w-2xl text-gray-500 dark:text-gray-400 text-center">
                 <h3 class="text-lg font-semibold text-gray-900 dark:text-white"><?=$f['nome_questionario']?></h3>
@@ -29,10 +29,12 @@
             </figcaption>
         </figure>
         <?php
-        }
-        ?>
+            }
+            ?>
     </div>
-    <button onclick='change()' class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mt-4 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Back</button>
+</div>
+<div class="w-full max-w-2xl mt-4">
+    <button onclick='change()' class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Back</button>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
 <script>
