@@ -80,7 +80,10 @@
     function add(type) {
         const form = document.getElementById('surveyForm');
         const lastDiv = document.querySelector('.container.items-center');
-
+        const optionButton = document.getElementById('optionButton');
+        if (optionButton) {
+            optionButton.remove();
+        }
         if (type === 1) {
             const number = localStorage.getItem('open') ? parseInt(localStorage.getItem('open')) + 1 : 1;
             const openQuestion = document.createElement('input');
